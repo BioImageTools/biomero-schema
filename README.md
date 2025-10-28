@@ -74,3 +74,113 @@ The schema supports several parameter types:
 ## Example
 
 See `tests/example_workflow.json` for a complete example of a valid workflow definition.
+
+## Spec
+
+The following is json-ish psuedo-code that describes the spec:
+
+```json
+schema = 
+{
+  "name": "string",                      // Required. GitHub workflow repository name (without prefix). E.g. NucleiTracking-ImageJ
+  "description": "string"                // Required. Description of workflow.
+  "schema-version": "string"             // Required. Semver of schema version.
+  "authors":                             // Optional. Authors list.
+    [
+      {
+        "name": "string",                // Required. Full name of author.
+        "email": "optional",             // Optional. Email address of author.
+        "affiliations": "string[]"       // Optional. List of affiliations matching "id" of an instituttion in instititions list.
+      }
+    ],
+  "institutions":                        // Optional. Institutions list.
+    [
+      {
+        "id": "string",                  // Required. Unique institute identifier.
+        "name": "string"                 // Optional. Name of the institions. Defaults to id.
+      }
+    ],
+  "citations":                           // Required. List of citations for the tool. At least one required.
+    [
+      {
+        "name": "string",                // Required. Name of the tool being cited.
+        "doi": "string",                 // Optional. DOI number of the tool being cited. Defaults to empty string.
+        "license": "string",             // Required. License of the tool being cited.
+        "description": "string"          // Optional. Description of the tool being cited. Defaults to empty string.
+      }
+    ],
+  "container-image":                     // Required. Base cotnainer description.
+    {
+      "image": "string",                 // Required. Image to match the name of your workflow GitHub repository (lower case only). E.g. neubiaswg5/w_nucleitracking-imagej:1.0.0
+      "type": "string",                  // Required. "OCI" | "Singularity"
+    },
+  "configuration":                       // Optional. Technical configuration.
+  {
+    "input_folder": "string",            // Optional. Full path where the input folder must be mounted in the container. Defaults to "/inputs".
+    "output_folder": "string",           // Optional. Full path where teh output folder must be mounted in the container. Defaults to "/outputs".
+    "resources":                         // Optional.
+      {
+        "networking": "boolean",         // Optional. Whether internet connection is needed. Defaults to False.
+        "ram-min": "number",             // Optional. Minimum RAM in mebibytes (Mi). Defaults to 0.
+        "cores-min": "number",           // Optional. Minimum number of CPU cores. Defaults to 1.
+        "gpu": "boolean",                // Optional. GPU/accelerator required. Defaults to False.
+        "cuda-requirements":             // Optional. GPU Cuda-related requirements.
+          {
+            "device-memory-min": "number", // Optional. Minimum device memory. Defaults to 0.
+            "cuda-compute-capability": "string|string[]", // Optional: The cudaComputeCapability Schema; single min value or list of valid values. Defaults to None.
+          },
+        "cpuAVX": "boolean",             // Optional. Advanced Vector Extensions (AVX) CPU capability required. Defaults to False.
+        "cpuAVX2": "boolean",            // Optional. Advanced Vector Extensions 2 (AVX2) CPU capability required. Defaults to False.
+      }
+  }
+  "inputs":                              // Required. List of parameter descriptors.
+    [
+      {
+        // references to "@id" get the value of "id" in lowercase
+        // references to "@ID" get the value of "id" in uppercase
+        "id": "string",                  // Required. Unique parameter identifier.
+        "type": "string",                // Required. Data type of the parameter (ineger|flaot|boolean|string|file|image|array).
+        "name": "string",                // Optional. Human-readable display name appearing in BIAFLOWS UI (paramater dialog box). Defaults to "@id".
+        "description": "string",         // Optional. Description of paramater. Context help in BIAFLOWS UI (paramater dialog box). Soft Defaults to "".
+        "value-key": "string",           // Optional. Substitution key in CLI. Defaults to "[@ID]".
+        "command-line-flag": "string",   // Optional. CLI flag. Defaults to "--@id".
+        "default-value": "string|number|boolean", // Optional. Default value in BIAFLOWS UI (paramater dialog box). Soft Defaults to empty string.
+        "optional": "boolean",           // Optional. If true, parameter not required. Soft Defaults to False.
+        "set-by-server": "boolean",      // Optional. If true, parameter is server-assigned. Soft Defaults to False.
+      }
+    ]
+  "outputs":                             // Optional. List of output parameter descriptors.
+    [
+      {
+        // references to "@id" get the value of "id" in lowercase
+        // references to "@ID" get the value of "id" in uppercase
+        "id": "string",                  // Required. Unique parameter identifier.
+        "type": "string",                // Required. Data type of the parameter (Number|String).
+        "name": "string",                // Optional. Human-readable display name appearing in BIAFLOWS UI (paramater dialog box). Defaults to "@id".
+        "description": "string",         // Optional. Description of paramater. Context help in BIAFLOWS UI (paramater dialog box). Soft Defaults to "".
+        "value-key": "string",           // Optional. Substitution key in CLI. Defaults to "[@ID]".
+        "command-line-flag": "string",   // Optional. CLI flag. Defaults to "--@id".
+        "default-value": "string|number|boolean", // Optional. Default value in BIAFLOWS UI (paramater dialog box). Soft Defaults to empty string.
+        "optional": "boolean",           // Optional. If true, parameter not required. Soft Defaults to False.
+        "set-by-server": "boolean",      // Optional. If true, parameter is server-assigned. Soft Defaults to False.
+      }
+    ]
+  "command-line": "string"               // Required. e.g. "python wrapper.py CYTOMINE_HOST CYTOMINE_PUBLIC_KEY CYTOMINE_PRIVATE_KEY CYTOMINE_ID_PROJECT CYTOMINE_ID_SOFTWARE IJ_RADIUS IJ_THRESHOLD".
+}
+
+file =
+{
+  "format": "string"                    // Required. Extension of the file type (.csv).
+}
+
+image =
+{
+  "sub-type": "string",                 // Required. Image type (grayscale|color|binary|labeled|class).
+  "format": "string"                    // Required. Extension of the image type (tif, png, jpg, jpeg, tiff, ometiff).
+}
+
+array =
+{
+  "format": "string"                    // Required. Extension of the file type (npy, npz)
+}
+```
