@@ -12,33 +12,35 @@ The schema is a mix of:
 
 ```bash
 cd biomero_schema
-pip install -e .
+pixi shell
 ```
 
 ## Usage
 
+### help
+
+```bash
+biomero-schema --help
+```
+
+## Predefined Tasks
+
 ### Validate a JSON file against the schema
 
 ```bash
-biomero-schema validate example_workflow.json
+pixi test-validate
 ```
 
 ### Parse a JSON file into a Pydantic representation
 
 ```bash
 # Basic parsing with summary
-biomero-schema parse example_workflow.json
-# or
 pixi run test-parse
 
 # Pretty print the full parsed object
-biomero-schema parse example_workflow.json --pretty
-# or
 pixi run test-pparse
 
 # Output as JSON
-biomero-schema parse example_workflow.json --json
-# or
 pixi run test-jparse
 ```
 

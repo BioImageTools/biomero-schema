@@ -55,7 +55,7 @@ packages:
 - pypi: ./
   name: biomero-schema
   version: 0.1.0
-  sha256: 3004efbbf131d69aa76119e9f6d5d573c38ea669d9b4622c32b03ffff48d0140
+  sha256: 0617141c08c4b02bd0129d266be230df046fcace0984dbdf6ff423ce50b02668
   requires_dist:
   - pydantic>=2.0.0
   - click>=8.0.0

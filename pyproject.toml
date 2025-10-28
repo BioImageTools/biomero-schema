@@ -36,3 +36,4 @@ biomero-schema = { path = ".", editable = true }
 test-parse = "biomero-schema parse tests/example_workflow.json"
 test-pparse = "biomero-schema parse tests/example_workflow.json --pretty"
 test-jparse = "biomero-schema parse tests/example_workflow.json --json"
+test-validate = "biomero-schema validate tests/example_workflow.json"

@@ -16,7 +16,8 @@ console = Console()
 
 def load_schema() -> Dict[str, Any]:
     """Load the JSON schema from file."""
-    schema_path = Path(__file__) / "schema.json"
+    schema_path = Path(__file__).parent / "schema.json"
+    print(schema_path)
     if not schema_path.exists():
         console.print(f"[red]Error: Schema file not found at {schema_path}[/red]")
         sys.exit(1)
