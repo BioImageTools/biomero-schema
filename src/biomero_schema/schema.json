@@ -2,7 +2,15 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Workflow Schema",
   "type": "object",
-  "required": ["name", "description", "schema-version", "citations", "container-image", "inputs", "command-line"],
+  "required": [
+    "name",
+    "description",
+    "schema-version",
+    "citations",
+    "container-image",
+    "inputs",
+    "command-line"
+  ],
   "properties": {
     "name": {
       "type": "string",
@@ -68,7 +76,9 @@
   "definitions": {
     "author": {
       "type": "object",
-      "required": ["name"],
+      "required": [
+        "name"
+      ],
       "properties": {
         "name": {
           "type": "string",
@@ -89,7 +99,9 @@
     },
     "institution": {
       "type": "object",
-      "required": ["id"],
+      "required": [
+        "id"
+      ],
       "properties": {
         "id": {
           "type": "string",
@@ -103,7 +115,10 @@
     },
     "citation": {
       "type": "object",
-      "required": ["name", "license"],
+      "required": [
+        "name",
+        "license"
+      ],
       "properties": {
         "name": {
           "type": "string",
@@ -125,7 +140,10 @@
     },
     "container-image": {
       "type": "object",
-      "required": ["image", "type"],
+      "required": [
+        "image",
+        "type"
+      ],
       "properties": {
         "image": {
           "type": "string",
@@ -133,8 +151,11 @@
         },
         "type": {
           "type": "string",
-          "enum": ["OCI", "Singularity"],
-          "description": "Container type"
+          "enum": [
+            "oci",
+            "singularity"
+          ],
+          "description": "Container type (lower case only): (oci|singularity)."
         }
       }
     },
@@ -211,7 +232,10 @@
     },
     "parameter": {
       "type": "object",
-      "required": ["id", "type"],
+      "required": [
+        "id",
+        "type"
+      ],
       "properties": {
         "id": {
           "type": "string",
@@ -219,7 +243,17 @@
         },
         "type": {
           "type": "string",
-          "enum": ["integer", "float", "boolean", "string", "file", "image", "array"],
+          "enum": [
+            "Number",
+            "String",
+            "integer",
+            "float",
+            "boolean",
+            "string",
+            "file",
+            "image",
+            "array"
+          ],
           "description": "Data type of the parameter"
         },
         "name": {
@@ -240,9 +274,15 @@
         },
         "default-value": {
           "oneOf": [
-            {"type": "string"},
-            {"type": "number"},
-            {"type": "boolean"}
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            }
           ],
           "description": "Default value in BIAFLOWS UI (parameter dialog box). Soft Defaults to empty string"
         },
@@ -259,7 +299,9 @@
         {
           "if": {
             "properties": {
-              "type": {"const": "file"}
+              "type": {
+                "const": "file"
+              }
             }
           },
           "then": {
@@ -269,53 +311,83 @@
                 "description": "Extension of the file type (.csv)"
               }
             },
-            "required": ["format"]
+            "required": [
+              "format"
+            ]
           }
         },
         {
           "if": {
             "properties": {
-              "type": {"const": "image"}
+              "type": {
+                "const": "image"
+              }
             }
           },
           "then": {
             "properties": {
               "sub-type": {
                 "type": "string",
-                "enum": ["grayscale", "color", "binary", "labeled", "class"],
+                "enum": [
+                  "grayscale",
+                  "color",
+                  "binary",
+                  "labeled",
+                  "class"
+                ],
                 "description": "Image type"
               },
               "format": {
                 "type": "string",
-                "enum": ["tif", "png", "jpg", "jpeg", "tiff", "ometiff"],
+                "enum": [
+                  "tif",
+                  "png",
+                  "jpg",
+                  "jpeg",
+                  "tiff",
+                  "ometiff"
+                ],
                 "description": "Extension of the image type"
               }
             },
-            "required": ["sub-type", "format"]
+            "required": [
+              "sub-type",
+              "format"
+            ]
           }
         },
         {
           "if": {
             "properties": {
-              "type": {"const": "array"}
+              "type": {
+                "const": "array"
+              }
             }
           },
           "then": {
             "properties": {
               "format": {
                 "type": "string",
-                "enum": ["npy", "npz"],
+                "enum": [
+                  "npy",
+                  "npz"
+                ],
                 "description": "Extension of the file type"
               }
             },
-            "required": ["format"]
+            "required": [
+              "format"
+            ]
           }
         }
       ]
     },
     "output-parameter": {
       "type": "object",
-      "required": ["id", "type"],
+      "required": [
+        "id",
+        "type"
+      ],
       "properties": {
         "id": {
           "type": "string",
@@ -323,7 +395,10 @@
         },
         "type": {
           "type": "string",
-          "enum": ["Number", "String"],
+          "enum": [
+            "Number",
+            "String"
+          ],
           "description": "Data type of the parameter"
         },
         "name": {
@@ -344,9 +419,15 @@
         },
         "default-value": {
           "oneOf": [
-            {"type": "string"},
-            {"type": "number"},
-            {"type": "boolean"}
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            }
           ],
           "description": "Default value in BIAFLOWS UI (parameter dialog box). Soft Defaults to empty string"
         },
@@ -362,3 +443,4 @@
     }
   }
 }
+

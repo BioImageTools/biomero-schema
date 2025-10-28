@@ -27,7 +27,7 @@ class Citation(BaseModel):
 class ContainerImage(BaseModel):
     """Container image model."""
     image: str = Field(..., description="Image to match the name of your workflow GitHub repository (lower case only)")
-    type: Literal["OCI", "Singularity"] = Field(..., description="Container type")
+    type: Literal["oci", "singularity"] = Field(..., description="Container type")
 
 
 class CudaRequirements(BaseModel):
@@ -73,7 +73,7 @@ class ArrayParameter(BaseModel):
 class Parameter(BaseModel):
     """Parameter model."""
     id: str = Field(..., description="Unique parameter identifier")
-    type: Literal["integer", "float", "boolean", "string", "file", "image", "array"] = Field(..., description="Data type of the parameter")
+    type: Literal["Number", "String", "integer", "float", "boolean", "string", "file", "image", "array"] = Field(..., description="Data type of the parameter")
     name: Optional[str] = Field(None, description="Human-readable display name appearing in BIAFLOWS UI (parameter dialog box). Defaults to '@id'")
     description: Optional[str] = Field(None, description="Description of parameter. Context help in BIAFLOWS UI (parameter dialog box). Soft Defaults to ''")
     value_key: Optional[str] = Field(None, alias="value-key", description="Substitution key in CLI. Defaults to '[@ID]'")
