@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "schema-validator"
+version = "0.1.0"
+description = "CLI tool to validate and parse JSON files against a schema"
+authors = [{name = "Schema Validator", email = "validator@example.com"}]
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "pydantic>=2.0.0",
+    "click>=8.0.0",
+    "jsonschema>=4.0.0",
+    "rich>=13.0.0"
+]
+
+[project.scripts]
+schema-validator = "schema_validator.cli:cli"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-dir]
+"" = "src"
+[tool.pixi.workspace]
+channels = ["conda-forge"]
+platforms = ["osx-64"]
+
+[tool.pixi.pypi-dependencies]
+schema-validator = { path = ".", editable = true }
+
+[tool.pixi.tasks]
+test-parse = "schema-validator parse example_workflow.json"
+test-ppretty = "schema-validator parse example_workflow.json --pretty"
+test-jparse = "schema-validator parse example_workflow.json --json"
