@@ -3,7 +3,7 @@ requires = ["setuptools>=45", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "schema-validator"
+name = "biomero-schema"
 version = "0.1.0"
 description = "CLI tool to validate and parse JSON files against a schema"
 authors = [{name = "Schema Validator", email = "validator@example.com"}]
@@ -17,21 +17,22 @@ dependencies = [
 ]
 
 [project.scripts]
-schema-validator = "schema_validator.cli:cli"
+biomero-schema = "biomero_schema.cli:cli"
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [tool.setuptools.package-dir]
 "" = "src"
+
 [tool.pixi.workspace]
 channels = ["conda-forge"]
 platforms = ["osx-64"]
 
 [tool.pixi.pypi-dependencies]
-schema-validator = { path = ".", editable = true }
+biomero-schema = { path = ".", editable = true }
 
 [tool.pixi.tasks]
-test-parse = "schema-validator parse tests/example_workflow.json"
-test-pparse = "schema-validator parse tests/example_workflow.json --pretty"
-test-jparse = "schema-validator parse tests/example_workflow.json --json"
+test-parse = "biomero-schema parse tests/example_workflow.json"
+test-pparse = "biomero-schema parse tests/example_workflow.json --pretty"
+test-jparse = "biomero-schema parse tests/example_workflow.json --json"

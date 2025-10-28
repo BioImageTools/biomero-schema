@@ -11,7 +11,7 @@ The schema is a mix of:
 ## Installation
 
 ```bash
-cd schema_validator
+cd biomero_schema
 pip install -e .
 ```
 
@@ -20,33 +20,33 @@ pip install -e .
 ### Validate a JSON file against the schema
 
 ```bash
-schema-validator validate example_workflow.json
+biomero-schema validate example_workflow.json
 ```
 
 ### Parse a JSON file into a Pydantic representation
 
 ```bash
 # Basic parsing with summary
-schema-validator parse example_workflow.json
+biomero-schema parse example_workflow.json
 # or
 pixi run test-parse
 
 # Pretty print the full parsed object
-schema-validator parse example_workflow.json --pretty
+biomero-schema parse example_workflow.json --pretty
 # or
 pixi run test-pparse
 
 # Output as JSON
-schema-validator parse example_workflow.json --json
+biomero-schema parse example_workflow.json --json
 # or
 pixi run test-jparse
 ```
 
 ## Files
 
-- `src/schema_validator/schema.json` - JSON Schema definition generated from the pseudocode
-- `src/schema_validator/models.py` - Pydantic models for the schema
-- `src/schema_validator/cli.py` - CLI implementation
+- `src/biomero_schema/schema.json` - JSON Schema definition generated from the pseudocode
+- `src/biomero_schema/models.py` - Pydantic models for the schema
+- `src/biomero_schema/cli.py` - CLI implementation
 - `tests/example_workflow.json` - Example workflow file for testing
 
 ## Schema Structure

@@ -1,2 +1,0 @@
-[console_scripts]
-schema-validator = schema_validator.cli:cli

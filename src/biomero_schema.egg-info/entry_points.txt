@@ -1,0 +1,2 @@
+[console_scripts]
+biomero-schema = biomero_schema.cli:cli

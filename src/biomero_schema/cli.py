@@ -1,4 +1,4 @@
-"""CLI for schema validation and parsing."""
+"""CLI for biomero schema validation and parsing."""
 import json
 import sys
 from pathlib import Path
