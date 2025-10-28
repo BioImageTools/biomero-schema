@@ -2,10 +2,11 @@
 
 A CLI tool to validate and parse JSON files against a workflow schema.
 
-The schema is a mix of a [subset](http://biaflows-doc.neubias.org/) (see section 3) of the [original (now deprecated)](https://github.com/cytomine/cytomine/blob/5f4f7cb3f90a244b8c95c064918fd6986a4de2cf/cytomine/utilities/descriptor_reader.py) cytomine schema,
-the [new](https://github.com/cytomine/cytomine/blob/main/app-engine/src/main/resources/schemas/tasks/task.v0.json) cytomine schema,
-the [fair-compute](https://github.com/usnistgov/fair-chain-compute-container/blob/master/schema/manifest.schema.json) schema,
-and the [bilayers](https://bilayers.org/understanding-config/#defining-inputs) schema.
+The schema is a mix of:
+* the [BiaFlows subset](http://biaflows-doc.neubias.org/) (see section 3) of the (now deprecated) [original cytomine](https://github.com/cytomine/cytomine/blob/5f4f7cb3f90a244b8c95c064918fd6986a4de2cf/cytomine/utilities/descriptor_reader.py) schema
+* the [new](https://github.com/cytomine/cytomine/blob/main/app-engine/src/main/resources/schemas/tasks/task.v0.json) cytomine App Engine task schema
+* the [NIST fair-compute](https://github.com/usnistgov/fair-chain-compute-container/blob/master/schema/manifest.schema.json) schema
+* the [Bilayers](https://bilayers.org/understanding-config/#defining-inputs) schema
 
 ## Installation
 
@@ -27,20 +28,26 @@ schema-validator validate example_workflow.json
 ```bash
 # Basic parsing with summary
 schema-validator parse example_workflow.json
+# or
+pixi run test-parse
 
 # Pretty print the full parsed object
 schema-validator parse example_workflow.json --pretty
+# or
+pixi run test-pparse
 
 # Output as JSON
 schema-validator parse example_workflow.json --json
+# or
+pixi run test-jparse
 ```
 
 ## Files
 
-- `schema.json` - JSON Schema definition generated from the pseudocode
+- `src/schema_validator/schema.json` - JSON Schema definition generated from the pseudocode
 - `src/schema_validator/models.py` - Pydantic models for the schema
 - `src/schema_validator/cli.py` - CLI implementation
-- `example_workflow.json` - Example workflow file for testing
+- `tests/example_workflow.json` - Example workflow file for testing
 
 ## Schema Structure
 
@@ -64,4 +71,4 @@ The schema supports several parameter types:
 
 ## Example
 
-See `example_workflow.json` for a complete example of a valid workflow definition.
+See `tests/example_workflow.json` for a complete example of a valid workflow definition.

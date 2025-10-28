@@ -32,6 +32,6 @@ platforms = ["osx-64"]
 schema-validator = { path = ".", editable = true }
 
 [tool.pixi.tasks]
-test-parse = "schema-validator parse example_workflow.json"
-test-ppretty = "schema-validator parse example_workflow.json --pretty"
-test-jparse = "schema-validator parse example_workflow.json --json"
+test-parse = "schema-validator parse tests/example_workflow.json"
+test-pparse = "schema-validator parse tests/example_workflow.json --pretty"
+test-jparse = "schema-validator parse tests/example_workflow.json --json"

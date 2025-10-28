@@ -333,7 +333,7 @@ packages:
 - pypi: ./
   name: schema-validator
   version: 0.1.0
-  sha256: 1bd3a93ee44ddbf132ee49231a5a58233b4d052051f93adb2ebeed5223003dfd
+  sha256: 8c12bc5ba32e7344b0d1fa0963fa9609bef540085e9054db49daf1dcd5076a0d
   requires_dist:
   - pydantic>=2.0.0
   - click>=8.0.0
