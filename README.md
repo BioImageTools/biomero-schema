@@ -3,7 +3,7 @@
 A CLI tool to validate and parse JSON files against a workflow schema.
 
 The schema is a mix of:
-* the [BiaFlows subset](http://biaflows-doc.neubias.org/) (see section 3) of the (now deprecated) [original cytomine](https://github.com/cytomine/cytomine/blob/5f4f7cb3f90a244b8c95c064918fd6986a4de2cf/cytomine/utilities/descriptor_reader.py) schema
+* the [BiaFlows subset](https://neubias-wg5.github.io/creating_bia_workflow_and_adding_to_biaflows_instance.html#workflow_step3) of the (now deprecated) [original cytomine](https://github.com/cytomine/cytomine/blob/5f4f7cb3f90a244b8c95c064918fd6986a4de2cf/cytomine/utilities/descriptor_reader.py) schema
 * the [new](https://github.com/cytomine/cytomine/blob/main/app-engine/src/main/resources/schemas/tasks/task.v0.json) cytomine App Engine task schema
 * the [NIST fair-compute](https://github.com/usnistgov/fair-chain-compute-container/blob/master/schema/manifest.schema.json) schema
 * the [Bilayers](https://bilayers.org/understanding-config/#defining-inputs) schema
