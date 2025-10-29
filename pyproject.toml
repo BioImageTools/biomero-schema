@@ -33,6 +33,7 @@ platforms = ["osx-64"]
 biomero-schema = { path = ".", editable = true }
 
 [tool.pixi.tasks]
+json-schema = { cmd = ["biomero-schema", "schema"], description = "Print the json schema generated from pydantic model" }
 test-parse = { cmd = ["biomero-schema", "parse", "tests/example_workflow.json"], description = "Parse and run pydantic validation on test file" }
 test-pparse = { cmd = ["biomero-schema", "parse", "tests/example_workflow.json", "--pretty"], description = "Parse, validate, and show detailed info on test file" }
 test-jparse = { cmd = ["biomero-schema", "parse", "tests/example_workflow.json", "--json"], description = "Parse, validate, and show test file json contents" }

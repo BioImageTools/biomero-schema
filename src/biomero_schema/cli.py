@@ -1,7 +1,6 @@
 """CLI for biomero schema validation and parsing."""
 import json
 import sys
-from pathlib import Path
 from typing import Any, Dict
 
 import click
@@ -12,17 +11,6 @@ from rich.pretty import pprint
 from .models import WorkflowSchema
 
 console = Console()
-
-
-def load_schema() -> Dict[str, Any]:
-    """Load the JSON schema from file."""
-    schema_path = Path(__file__).parent / "schema.json"
-    if not schema_path.exists():
-        console.print(f"[red]Error: Schema file not found at {schema_path}[/red]")
-        sys.exit(1)
-    
-    with open(schema_path) as f:
-        return json.load(f)
 
 
 def load_json_file(file_path: str) -> Dict[str, Any]:
@@ -44,15 +32,21 @@ def cli():
     """Schema validator CLI tool."""
     pass
 
+@cli.command()
+def schema():
+    """Print JSON schema representation of pydantic model"""
+    model_schema = WorkflowSchema.model_json_schema()
+    console.print(json.dumps(model_schema, indent=2))
+
 
 @cli.command()
 @click.argument("json_file", type=click.Path(exists=True))
 def validate(json_file: str):
-    """Validate a JSON file against the schema."""
+    """Validate a JSON file against the JSON schema."""
     console.print(f"[blue]Validating {json_file}...[/blue]")
     
     # Load schema and JSON file
-    schema = load_schema()
+    schema = WorkflowSchema.model_json_schema()
     data = load_json_file(json_file)
     
     try:

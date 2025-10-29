@@ -37,10 +37,20 @@ Available `pixi` tasks.
 pixi task list
 ```
 
+### JSON Schema
+
+The pydantic model is able to generate a JSON schema, which is printable with:
+
+```bash
+pixi run json-schema
+# OR directly
+biomero-schema schema
+```
+
 ### Validate a JSON file against the schema
 
 ```bash
-pixi test-validate
+pixi run test-validate
 ```
 
 ### Parse a JSON file into a Pydantic representation
@@ -58,7 +68,6 @@ pixi run test-jparse
 
 ## Files
 
-- `src/biomero_schema/schema.json` - JSON Schema definition generated from the pseudocode
 - `src/biomero_schema/models.py` - Pydantic models for the schema
 - `src/biomero_schema/cli.py` - CLI implementation
 - `tests/example_workflow.json` - Example workflow file for testing
