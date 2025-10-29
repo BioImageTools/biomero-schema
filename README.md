@@ -85,7 +85,7 @@ schema =
   "name": "string",                      // Required. GitHub workflow repository name (without prefix). E.g. NucleiTracking-ImageJ
   "description": "string"                // Required. Description of workflow.
   "schema-version": "string"             // Required. Semver of schema version.
-  "authors":                           // Optional. Authors list.
+  "authors":                             // Optional. Authors list.
     [
       {
         "name": "string",                // Required. Full name of author.
@@ -93,14 +93,14 @@ schema =
         "affiliations": "string[]"       // Optional. List of affiliations matching "id" of an instituttion in instititions list.
       }
     ],
-  "institutions":                      // Optional. Institutions list.
+  "institutions":                        // Optional. Institutions list.
     [
       {
         "id": "string",                  // Required. Unique institute identifier.
         "name": "string"                 // Optional. Name of the institions. Defaults to id.
       }
     ],
-  "citations":                         // Optional. List of citations for the tool. Defaults to empty list.
+  "citations":                           // Optional. List of citations for the tool. Defaults to empty list.
     [
       {
         "name": "string",                // Required. Name of the tool being cited.
@@ -109,22 +109,22 @@ schema =
         "description": "string"          // Optional. Description of the tool being cited. Defaults to empty string.
       }
     ],
-  "container-image":                   // Required. Base cotnainer description.
+  "container-image":                     // Required. Base cotnainer description.
     {
       "image": "string",                 // Required. Image to match the name of your workflow GitHub repository (lower case only). E.g. neubiaswg5/w_nucleitracking-imagej:1.0.0
       "type": "string",                  // Required. "oci" | "singularity" (lower case only).
     },
-  "configuration":                     // Optional. Technical configuration.
+  "configuration":                       // Optional. Technical configuration.
   {
     "input_folder": "string",            // Optional. Full path where the input folder must be mounted in the container. Defaults to "/inputs".
     "output_folder": "string",           // Optional. Full path where teh output folder must be mounted in the container. Defaults to "/outputs".
-    "resources":                       // Optional.
+    "resources":                         // Optional.
       {
         "networking": "boolean",         // Optional. Whether internet connection is needed. Defaults to False.
         "ram-min": "number",             // Optional. Minimum RAM in mebibytes (Mi). Defaults to 0.
         "cores-min": "number",           // Optional. Minimum number of CPU cores. Defaults to 1.
         "gpu": "boolean",                // Optional. GPU/accelerator required. Defaults to False.
-        "cuda-requirements":           // Optional. GPU Cuda-related requirements.
+        "cuda-requirements":             // Optional. GPU Cuda-related requirements.
           {
             "device-memory-min": "number", // Optional. Minimum device memory. Defaults to 0.
             "cuda-compute-capability": "string|string[]", // Optional: The cudaComputeCapability Schema; single min value or list of valid values. Defaults to None.
@@ -133,7 +133,7 @@ schema =
         "cpuAVX2": "boolean",            // Optional. Advanced Vector Extensions 2 (AVX2) CPU capability required. Defaults to False.
       }
   }
-  "inputs":                            // Required. List of parameter descriptors.
+  "inputs":                                // Required. List of parameter descriptors.
     [
       {
         // references to "@id" get the value of "id" in lowercase
