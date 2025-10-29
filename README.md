@@ -133,7 +133,7 @@ schema =
         "cpuAVX2": "boolean",            // Optional. Advanced Vector Extensions 2 (AVX2) CPU capability required. Defaults to False.
       }
   }
-  "inputs":                                // Required. List of parameter descriptors.
+  "inputs":                              // Required. List of parameter descriptors.
     [
       {
         // references to "@id" get the value of "id" in lowercase
