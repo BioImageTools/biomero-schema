@@ -7,6 +7,8 @@ The schema is a mix of:
 * the [new](https://github.com/cytomine/cytomine/blob/main/app-engine/src/main/resources/schemas/tasks/task.v0.json) cytomine App Engine task schema
 * the [NIST fair-compute](https://github.com/usnistgov/fair-chain-compute-container/blob/master/schema/manifest.schema.json) schema
 * the [Bilayers](https://bilayers.org/understanding-config/#defining-inputs) schema
+* the [BIAFlows problem class list](https://neubias-wg5.github.io/problem_class_ground_truth.html#steps-section)
+
 
 ## Installation
 
