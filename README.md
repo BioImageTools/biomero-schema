@@ -120,7 +120,7 @@ schema =
     {
       "image": "string",                 // Required. Image to match the name of your workflow GitHub repository (lower case only). E.g. neubiaswg5/w_nucleitracking-imagej:1.0.0
       "type": "string",                  // Required. "oci" | "singularity" (lower case only).
-      "platforms": "string"[]             // Optional. Build-time multi-platform targets.
+      "platforms": "string"[]            // Optional. Build-time multi-platform targets.
     },
   "configuration":                       // Optional. Technical configuration.
   {
