@@ -100,7 +100,7 @@ schema =
         "name": "string"                 // Optional. Name of the institions. Defaults to id.
       }
     ],
-  "citations":                         // Optional. List of citations for the tool. At least one required.
+  "citations":                         // Optional. List of citations for the tool. Defaults to empty list.
     [
       {
         "name": "string",                // Required. Name of the tool being cited.

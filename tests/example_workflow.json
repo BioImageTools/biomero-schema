@@ -6,11 +6,15 @@
     {
       "name": "John Doe",
       "email": "john.doe@university.edu",
-      "affiliations": ["university-lab"]
+      "affiliations": [
+        "university-lab"
+      ]
     },
     {
       "name": "Jane Smith",
-      "affiliations": ["research-institute"]
+      "affiliations": [
+        "research-institute"
+      ]
     }
   ],
   "institutions": [
@@ -38,7 +42,7 @@
   ],
   "container-image": {
     "image": "neubiaswg5/w_nucleitracking-imagej:1.0.0",
-    "type": "OCI"
+    "type": "oci"
   },
   "configuration": {
     "input_folder": "/inputs",
@@ -71,7 +75,7 @@
       "description": "Radius for nuclei detection in pixels",
       "value-key": "[RADIUS]",
       "command-line-flag": "--radius",
-      "default-value": 5.0,
+      "default-value": 5,
       "optional": true
     },
     {
@@ -81,7 +85,7 @@
       "description": "Intensity threshold for nuclei detection",
       "value-key": "[THRESHOLD]",
       "command-line-flag": "--threshold",
-      "default-value": 100.0,
+      "default-value": 100,
       "optional": true
     },
     {
@@ -113,3 +117,4 @@
   ],
   "command-line": "python wrapper.py [INPUT_IMAGE] --radius [RADIUS] --threshold [THRESHOLD] --config [CONFIG] --output [OUTPUT_PATH]"
 }
+
