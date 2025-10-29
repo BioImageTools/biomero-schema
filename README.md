@@ -113,6 +113,7 @@ schema =
         "description": "string"          // Optional. Description of the tool being cited. Defaults to empty string.
       }
     ],
+  // corresponding to: https://neubias-wg5.github.io/problem_class_ground_truth.html#steps-section
   "problem-class":                       // Optional. Biaflows problem class ("object-segmentation" | "pixel-classification" | "object-counting" | "object-detection" | "filament-tree-tracing" | "filament-networks-tracing" | "landmark-detection" | "particle-tracking" | "object-tracking").
   "container-image":                     // Required. Base cotnainer description.
     {
