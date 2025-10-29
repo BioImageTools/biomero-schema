@@ -105,8 +105,8 @@ class WorkflowSchema(BaseModel):
     name: str = Field(..., description="GitHub workflow repository name (without prefix). E.g. NucleiTracking-ImageJ")
     description: str = Field(..., description="Description of workflow")
     schema_version: str = Field(..., alias="schema-version", description="Semver of schema version")
-    authors: Optional[List[Author]] = Field(None, description="Authors list")
-    institutions: Optional[List[Institution]] = Field(None, description="Institutions list")
+    authors: List[Author] = Field([], description="Authors list")
+    institutions: List[Institution] = Field([], description="Institutions list")
     citations: List[Citation] = Field([], min_length=1, description="List of citations for the tool. At least one required")
     problem_class: Optional[Literal[
         "object-segmentation",
@@ -122,7 +122,7 @@ class WorkflowSchema(BaseModel):
     container_image: ContainerImage = Field(..., alias="container-image", description="Base container description")
     configuration: Optional[Configuration] = Field(None, description="Technical configuration")
     inputs: List[Parameter] = Field(..., description="List of parameter descriptors")
-    outputs: Optional[List[OutputParameter]] = Field(None, description="List of output parameter descriptors")
+    outputs: List[OutputParameter] = Field([], description="List of output parameter descriptors")
     command_line: str = Field(..., alias="command-line", description="Command line template")
 
     class Config:

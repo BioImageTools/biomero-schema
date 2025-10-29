@@ -104,12 +104,9 @@ def parse(json_file: str, pretty: bool, output_json: bool):
             console.print(f"Container Image: {workflow.container_image.image} ({workflow.container_image.type})")
             console.print(f"Citations: {len(workflow.citations)} citation(s)")
             console.print(f"Inputs: {len(workflow.inputs)} parameter(s)")
-            if workflow.outputs:
-                console.print(f"Outputs: {len(workflow.outputs)} parameter(s)")
-            if workflow.authors:
-                console.print(f"Authors: {len(workflow.authors)} author(s)")
-            if workflow.institutions:
-                console.print(f"Institutions: {len(workflow.institutions)} institution(s)")
+            console.print(f"Outputs: {len(workflow.outputs)} parameter(s)")
+            console.print(f"Authors: {len(workflow.authors)} author(s)")
+            console.print(f"Institutions: {len(workflow.institutions)} institution(s)")
             
     except Exception as e:
         console.print(f"[red]✗ Parsing failed: {e}[/red]")
