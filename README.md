@@ -62,18 +62,11 @@ The schema defines a workflow with the following main components:
 - **Basic Info**: name, description, schema-version
 - **People & Organizations**: authors, institutions
 - **Citations**: Required list of tool citations
+- **Probelm Class**: Optional [BIAFlows problem class](https://neubias-wg5.github.io/problem_class_ground_truth.html#steps-section)
 - **Container**: container-image specification
 - **Configuration**: Technical settings and resource requirements
 - **Parameters**: inputs and outputs with type definitions
 - **Command Line**: Template for execution
-
-## Parameter Types
-
-The schema supports several parameter types:
-- `integer`, `float`, `boolean`, `string` - Basic types
-- `file` - Files with format specification
-- `image` - Images with sub-type and format
-- `array` - Arrays with format (npy, npz)
 
 ## Example
 
