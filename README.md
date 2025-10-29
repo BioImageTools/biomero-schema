@@ -31,6 +31,12 @@ biomero-schema --help
 
 ## Predefined Tasks
 
+Available `pixi` tasks.
+
+```bash
+pixi task list
+```
+
 ### Validate a JSON file against the schema
 
 ```bash
