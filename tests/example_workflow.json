@@ -40,6 +40,7 @@
       "description": "TrackMate plugin for ImageJ"
     }
   ],
+  "problem-class": "object-tracking",
   "container-image": {
     "image": "neubiaswg5/w_nucleitracking-imagej:1.0.0",
     "type": "oci"
@@ -117,4 +118,3 @@
   ],
   "command-line": "python wrapper.py [INPUT_IMAGE] --radius [RADIUS] --threshold [THRESHOLD] --config [CONFIG] --output [OUTPUT_PATH]"
 }
-

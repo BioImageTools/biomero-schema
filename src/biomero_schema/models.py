@@ -108,6 +108,17 @@ class WorkflowSchema(BaseModel):
     authors: Optional[List[Author]] = Field(None, description="Authors list")
     institutions: Optional[List[Institution]] = Field(None, description="Institutions list")
     citations: List[Citation] = Field([], min_length=1, description="List of citations for the tool. At least one required")
+    problem_class: Optional[Literal[
+        "object-segmentation",
+        "pixel-classification",
+        "object-counting",
+        "object-detection",
+        "filament-tree-tracing",
+        "filament-networks-tracing",
+        "landmark-detection",
+        "particle-tracking",
+        "object-tracking",
+    ]] = Field(None, alias="problem-class", description="BIAFlows problem class")
     container_image: ContainerImage = Field(..., alias="container-image", description="Base container description")
     configuration: Optional[Configuration] = Field(None, description="Technical configuration")
     inputs: List[Parameter] = Field(..., description="List of parameter descriptors")

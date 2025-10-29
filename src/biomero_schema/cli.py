@@ -100,6 +100,7 @@ def parse(json_file: str, pretty: bool, output_json: bool):
             console.print(f"Name: {workflow.name}")
             console.print(f"Description: {workflow.description}")
             console.print(f"Schema Version: {workflow.schema_version}")
+            console.print(f"Problem Class: {workflow.problem_class}")
             console.print(f"Container Image: {workflow.container_image.image} ({workflow.container_image.type})")
             console.print(f"Citations: {len(workflow.citations)} citation(s)")
             console.print(f"Inputs: {len(workflow.inputs)} parameter(s)")

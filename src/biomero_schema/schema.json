@@ -45,6 +45,21 @@
         "$ref": "#/definitions/citation"
       }
     },
+    "problem-class": {
+      "type": "string",
+      "description": "BIAFlows problem class",
+      "enum": [
+        "object-segmentation",
+        "pixel-classification",
+        "object-counting",
+        "object-detection",
+        "filament-tree-tracing",
+        "filament-networks-tracing",
+        "landmark-detection",
+        "particle-tracking",
+        "object-tracking"
+      ]
+    },
     "container-image": {
       "$ref": "#/definitions/container-image",
       "description": "Base container description"

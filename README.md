@@ -113,6 +113,7 @@ schema =
         "description": "string"          // Optional. Description of the tool being cited. Defaults to empty string.
       }
     ],
+  "problem-class":                       // Optional. Biaflows problem class ("object-segmentation" | "pixel-classification" | "object-counting" | "object-detection" | "filament-tree-tracing" | "filament-networks-tracing" | "landmark-detection" | "particle-tracking" | "object-tracking").
   "container-image":                     // Required. Base cotnainer description.
     {
       "image": "string",                 // Required. Image to match the name of your workflow GitHub repository (lower case only). E.g. neubiaswg5/w_nucleitracking-imagej:1.0.0
