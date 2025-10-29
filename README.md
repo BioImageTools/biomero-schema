@@ -10,10 +10,14 @@ The schema is a mix of:
 
 ## Installation
 
+`pixi` is used for installation and running some tasks. It's not strictly required, but recommended to [install pixi](https://pixi.sh/latest/installation/).
+
 ```bash
 cd biomero_schema
 pixi shell
 ```
+
+Or use `pip install -e .` (or equivilant) in a virtual environment.
 
 ## Usage
 
