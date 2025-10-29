@@ -170,6 +170,13 @@
             "singularity"
           ],
           "description": "Container type (lower case only): (oci|singularity)."
+        },
+        "platforms": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Build-time multi-platform targets."
         }
       }
     },

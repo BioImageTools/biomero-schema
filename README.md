@@ -80,9 +80,9 @@ The schema defines a workflow with the following main components:
 
 See `tests/example_workflow.json` for a complete example of a valid workflow definition.
 
-## Spec
+## Schema
 
-The following is json-ish psuedo-code that describes the spec:
+The following is json-ish psuedo-code that describes the schema:
 
 ```json
 schema = 
@@ -120,6 +120,7 @@ schema =
     {
       "image": "string",                 // Required. Image to match the name of your workflow GitHub repository (lower case only). E.g. neubiaswg5/w_nucleitracking-imagej:1.0.0
       "type": "string",                  // Required. "oci" | "singularity" (lower case only).
+      "platforms": "string"[]             // Optional. Build-time multi-platform targets.
     },
   "configuration":                       // Optional. Technical configuration.
   {
