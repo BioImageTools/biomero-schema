@@ -6,7 +6,6 @@
     "name",
     "description",
     "schema-version",
-    "citations",
     "container-image",
     "inputs",
     "command-line"
@@ -443,4 +442,3 @@
     }
   }
 }
-

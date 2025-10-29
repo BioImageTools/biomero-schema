@@ -107,7 +107,7 @@ class WorkflowSchema(BaseModel):
     schema_version: str = Field(..., alias="schema-version", description="Semver of schema version")
     authors: Optional[List[Author]] = Field(None, description="Authors list")
     institutions: Optional[List[Institution]] = Field(None, description="Institutions list")
-    citations: List[Citation] = Field(..., min_length=1, description="List of citations for the tool. At least one required")
+    citations: Optional[List[Citation]] = Field(..., min_length=1, description="List of citations for the tool. At least one required")
     container_image: ContainerImage = Field(..., alias="container-image", description="Base container description")
     configuration: Optional[Configuration] = Field(None, description="Technical configuration")
     inputs: List[Parameter] = Field(..., description="List of parameter descriptors")
