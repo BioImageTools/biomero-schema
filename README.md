@@ -1,4 +1,4 @@
-# Schema Validator
+# BIOMERO Schema
 
 A CLI tool to validate and parse JSON files against a workflow schema.
 
