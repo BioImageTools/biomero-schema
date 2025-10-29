@@ -1,6 +1,8 @@
 # BIOMERO Schema
 
-A CLI tool to validate and parse JSON files against a workflow schema.
+The BIOMERO schema is defined as a `pydantic` model, and can be exported as `json-schema`.
+
+A CLI tool is included to validate and parse JSON files against the schema.
 
 The schema is a mix of:
 * the [BiaFlows subset](https://neubias-wg5.github.io/creating_bia_workflow_and_adding_to_biaflows_instance.html#workflow_step3) of the (now deprecated) [original cytomine](https://github.com/cytomine/cytomine/blob/5f4f7cb3f90a244b8c95c064918fd6986a4de2cf/cytomine/utilities/descriptor_reader.py) schema
