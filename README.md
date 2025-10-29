@@ -64,7 +64,7 @@ The schema defines a workflow with the following main components:
 - **Basic Info**: name, description, schema-version
 - **People & Organizations**: authors, institutions
 - **Citations**: Required list of tool citations
-- **Probelm Class**: Optional [BIAFlows problem class](https://neubias-wg5.github.io/problem_class_ground_truth.html#steps-section)
+- **Problem Class**: Optional [BIAFlows problem class](https://neubias-wg5.github.io/problem_class_ground_truth.html#steps-section)
 - **Container**: container-image specification
 - **Configuration**: Technical settings and resource requirements
 - **Parameters**: inputs and outputs with type definitions
