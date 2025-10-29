@@ -34,6 +34,6 @@ biomero-schema = { path = ".", editable = true }
 
 [tool.pixi.tasks]
 test-parse = { cmd = ["biomero-schema", "parse", "tests/example_workflow.json"], description = "Parse and run pydantic validation on test file" }
-test-pparse = { cmd = ["biomero-schema", "parse", "tests/example_workflow.json", "--pretty"], description = "Parse and run test pretty parse" }
-test-jparse = { cmd = ["biomero-schema", "parse", "tests/example_workflow.json", "--json"], description = "Print test json" }
+test-pparse = { cmd = ["biomero-schema", "parse", "tests/example_workflow.json", "--pretty"], description = "Parse, validate, and show detailed info on test file" }
+test-jparse = { cmd = ["biomero-schema", "parse", "tests/example_workflow.json", "--json"], description = "Parse, validate, and show test file json contents" }
 test-validate = { cmd = ["biomero-schema", "validate", "tests/example_workflow.json"], description = "Run json schema validation on test file" }
