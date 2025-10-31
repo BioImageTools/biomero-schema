@@ -21,7 +21,7 @@ cd biomero_schema
 pixi shell
 ```
 
-Or use `pip install -e .` (or equivilant) in a virtual environment.
+Or use `pip install -e .` (or equivalent) in a virtual environment.
 
 ## Usage
 
