@@ -91,7 +91,7 @@ The schema defines a workflow with the following main components:
 
 See `tests/example_workflow.json` for a complete example of a valid workflow definition.
 
-## Schema
+## Schema Details
 
 The following is json-ish psuedo-code that describes the schema:
 
