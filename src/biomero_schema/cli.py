@@ -1,23 +1,29 @@
 """CLI for biomero schema validation and parsing."""
 import json
+import os.path
 import sys
 from typing import Any, Dict
+import yaml
 
 import click
 import jsonschema
 from rich.console import Console
 from rich.pretty import pprint
 
-from .models import WorkflowSchema
+from biomero_schema.models import WorkflowSchema
 
 console = Console()
 
 
-def load_json_file(file_path: str) -> Dict[str, Any]:
-    """Load JSON file and return parsed content."""
+def load_descriptor_file(file_path: str) -> Dict[str, Any]:
+    """Load descriptor file and return parsed content."""
     try:
+        ext = os.path.splitext(file_path)[1]
         with open(file_path) as f:
-            return json.load(f)
+            if ext in (".yaml", ".yml"):
+                return yaml.safe_load(f)
+            else:
+                return json.load(f)
     except FileNotFoundError:
         console.print(f"[red]Error: File '{file_path}' not found[/red]")
         sys.exit(1)
@@ -40,14 +46,14 @@ def schema():
 
 
 @cli.command()
-@click.argument("json_file", type=click.Path(exists=True))
-def validate(json_file: str):
+@click.argument("descriptor_file", type=click.Path(exists=True))
+def validate(descriptor_file: str):
     """Validate a JSON file against the JSON schema."""
-    console.print(f"[blue]Validating {json_file}...[/blue]")
+    console.print(f"[blue]Validating {descriptor_file}...[/blue]")
     
     # Load schema and JSON file
     schema = WorkflowSchema.model_json_schema()
-    data = load_json_file(json_file)
+    data = load_descriptor_file(descriptor_file)
     
     try:
         jsonschema.validate(data, schema)
@@ -64,15 +70,15 @@ def validate(json_file: str):
 
 
 @cli.command()
-@click.argument("json_file", type=click.Path(exists=True))
+@click.argument("input_file", type=click.Path(exists=True))
 @click.option("--pretty", is_flag=True, help="Pretty print the parsed object")
 @click.option("--json", "output_json", is_flag=True, help="Output as JSON")
-def parse(json_file: str, pretty: bool, output_json: bool):
-    """Parse a JSON file into a Pydantic representation."""
-    console.print(f"[blue]Parsing {json_file}...[/blue]")
+def parse(descriptor_file: str, pretty: bool, output_json: bool):
+    """Parse a descriptor file into a Pydantic representation."""
+    console.print(f"[blue]Parsing {descriptor_file}...[/blue]")
     
-    # Load and validate JSON file
-    data = load_json_file(json_file)
+    # Load and validate descriptor file
+    data = load_descriptor_file(descriptor_file)
     
     try:
         # Parse into Pydantic model
