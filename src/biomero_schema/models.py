@@ -84,8 +84,8 @@ class Parameter(BaseModel):
     set_by_server: Optional[bool] = Field(None, alias="set-by-server", description="If true, parameter is server-assigned. Soft Defaults to False")
     
     # Type-specific fields
-    format: Optional[str] = Field(None, description="Format for file/image/array types")
-    sub_type: Optional[str] = Field(None, alias="sub-type", description="Sub-type for image parameters")
+    format: Optional[Union[str, List[str]]] = Field(None, description="Format for file/image/array types")
+    sub_type: Optional[Union[str, List[str]]] = Field(None, alias="sub-type", description="Sub-type for image parameters")
 
 
 class OutputParameter(BaseModel):
@@ -101,8 +101,8 @@ class OutputParameter(BaseModel):
     set_by_server: Optional[bool] = Field(None, alias="set-by-server", description="If true, parameter is server-assigned. Soft Defaults to False")
 
     # Type-specific fields
-    format: Optional[str] = Field(None, description="Format for file/image/array types")
-    sub_type: Optional[str] = Field(None, alias="sub-type", description="Sub-type for image parameters")
+    format: Optional[Union[str, List[str]]] = Field(None, description="Format for file/image/array types")
+    sub_type: Optional[Union[str, List[str]]] = Field(None, alias="sub-type", description="Sub-type for image parameters")
 
 
 class WorkflowSchema(BaseModel):
