@@ -27,7 +27,7 @@ class Citation(BaseModel):
 class ContainerImage(BaseModel):
     """Container image model."""
     image: str = Field(..., description="Image to match the name of your workflow GitHub repository (lower case only)")
-    type: Literal["oci", "singularity"] = Field(..., description="Container type")
+    type: Literal["oci", "singularity", "docker"] = Field(..., description="Container type")
     platforms: Optional[List[str]] = Field(None, description="Build-time multi-platform targets")
 
 
