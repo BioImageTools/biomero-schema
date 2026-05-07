@@ -91,7 +91,7 @@ class Parameter(BaseModel):
 class OutputParameter(BaseModel):
     """Output parameter model."""
     id: str = Field(..., description="Unique parameter identifier")
-    type: Literal["Number", "String"] = Field(..., description="Data type of the parameter")
+    type: Literal["Number", "String", "integer", "float", "boolean", "string", "file", "image", "array"] = Field(..., description="Data type of the parameter")
     name: Optional[str] = Field(None, description="Human-readable display name appearing in BIAFLOWS UI (parameter dialog box). Defaults to '@id'")
     description: Optional[str] = Field(None, description="Description of parameter. Context help in BIAFLOWS UI (parameter dialog box). Soft Defaults to ''")
     value_key: Optional[str] = Field(None, alias="value-key", description="Substitution key in CLI. Defaults to '[@ID]'")
