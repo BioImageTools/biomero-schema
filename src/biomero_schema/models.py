@@ -74,7 +74,7 @@ class ArrayParameter(BaseModel):
 class Parameter(BaseModel):
     """Parameter model."""
     id: str = Field(..., description="Unique parameter identifier")
-    type: Literal["Number", "String"] = Field(..., description="Data type of the parameter")
+    type: Literal["Number", "String", "integer", "float", "boolean", "string", "file", "image", "array"] = Field(..., description="Data type of the parameter")
     name: Optional[str] = Field(None, description="Human-readable display name appearing in BIAFLOWS UI (parameter dialog box). Defaults to '@id'")
     description: Optional[str] = Field(None, description="Description of parameter. Context help in BIAFLOWS UI (parameter dialog box). Soft Defaults to ''")
     value_key: Optional[str] = Field(None, alias="value-key", description="Substitution key in CLI. Defaults to '[@ID]'")
@@ -99,6 +99,10 @@ class OutputParameter(BaseModel):
     default_value: Optional[Union[str, float, bool]] = Field(None, alias="default-value", description="Default value in BIAFLOWS UI (parameter dialog box). Soft Defaults to empty string")
     optional: Optional[bool] = Field(None, description="If true, parameter not required. Soft Defaults to False")
     set_by_server: Optional[bool] = Field(None, alias="set-by-server", description="If true, parameter is server-assigned. Soft Defaults to False")
+
+    # Type-specific fields
+    format: Optional[str] = Field(None, description="Format for file/image/array types")
+    sub_type: Optional[str] = Field(None, alias="sub-type", description="Sub-type for image parameters")
 
 
 class WorkflowSchema(BaseModel):
