@@ -82,7 +82,8 @@ class Parameter(BaseModel):
     default_value: Optional[Union[str, float, bool]] = Field(None, alias="default-value", description="Default value in BIAFLOWS UI (parameter dialog box). Soft Defaults to empty string")
     optional: Optional[bool] = Field(None, description="If true, parameter not required. Soft Defaults to False")
     set_by_server: Optional[bool] = Field(None, alias="set-by-server", description="If true, parameter is server-assigned. Soft Defaults to False")
-    
+    value_choices: Optional[List[Union[str, int, float, bool]]] = Field(None, alias="value-choices", description="List of allowed values for this parameter")
+
     # Type-specific fields
     format: Optional[Union[str, List[str]]] = Field(None, description="Format for file/image/array types")
     sub_type: Optional[Union[str, List[str]]] = Field(None, alias="sub-type", description="Sub-type for image parameters")
@@ -99,6 +100,7 @@ class OutputParameter(BaseModel):
     default_value: Optional[Union[str, float, bool]] = Field(None, alias="default-value", description="Default value in BIAFLOWS UI (parameter dialog box). Soft Defaults to empty string")
     optional: Optional[bool] = Field(None, description="If true, parameter not required. Soft Defaults to False")
     set_by_server: Optional[bool] = Field(None, alias="set-by-server", description="If true, parameter is server-assigned. Soft Defaults to False")
+    value_choices: Optional[List[Union[str, int, float, bool]]] = Field(None, alias="value-choices", description="List of allowed values for this parameter")
 
     # Type-specific fields
     format: Optional[Union[str, List[str]]] = Field(None, description="Format for file/image/array types")
