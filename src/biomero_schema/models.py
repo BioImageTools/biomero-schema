@@ -83,6 +83,7 @@ class Parameter(BaseModel):
     optional: Optional[bool] = Field(None, description="If true, parameter not required. Soft Defaults to False")
     set_by_server: Optional[bool] = Field(None, alias="set-by-server", description="If true, parameter is server-assigned. Soft Defaults to False")
     value_choices: Optional[List[Union[str, int, float, bool]]] = Field(None, alias="value-choices", description="List of allowed values for this parameter")
+    output_dir_set: Optional[bool] = Field(None, alias="output-dir-set", description="If true, this parameter specifies the output directory (bilayers output_dir_set flag). Biomero will supply the data/out path.")
 
     # Type-specific fields
     format: Optional[Union[str, List[str]]] = Field(None, description="Format for file/image/array types")
