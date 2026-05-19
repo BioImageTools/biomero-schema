@@ -1,6 +1,8 @@
 """Pydantic models for the workflow schema."""
 from typing import List, Optional, Union, Literal
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, computed_field, ConfigDict
+
+_ZARR_FORMATS = frozenset({'zarr', 'omezarr', 'ome.zarr', 'ome-zarr'})
 
 
 class Author(BaseModel):
@@ -133,6 +135,37 @@ class WorkflowSchema(BaseModel):
     outputs: List[OutputParameter] = Field([], description="List of output parameter descriptors")
     command_line: str = Field(..., alias="command-line", description="Command line template")
 
-    class Config:
-        populate_by_name = True
-        validate_by_name = True
+    @computed_field(alias="requires-zarr")
+    @property
+    def requires_zarr(self) -> bool:
+        """True when any image input uses a ZARR format or has plate subtype."""
+        for inp in self.inputs:
+            if inp.type != 'image':
+                continue
+            fmt = inp.format or []
+            if isinstance(fmt, str):
+                fmt = [fmt]
+            if any(f in _ZARR_FORMATS for f in fmt):
+                return True
+            sub = inp.sub_type or []
+            if isinstance(sub, str):
+                sub = [sub]
+            if 'plate' in sub:
+                return True
+        return False
+
+    @computed_field(alias="requires-plate")
+    @property
+    def requires_plate(self) -> bool:
+        """True when any image input has plate subtype."""
+        for inp in self.inputs:
+            if inp.type != 'image':
+                continue
+            sub = inp.sub_type or []
+            if isinstance(sub, str):
+                sub = [sub]
+            if 'plate' in sub:
+                return True
+        return False
+
+    model_config = ConfigDict(populate_by_name=True, validate_by_alias=True)

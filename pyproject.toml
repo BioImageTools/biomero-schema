@@ -17,6 +17,12 @@ dependencies = [
     "pyyaml>=6.0.3"
 ]
 
+[project.optional-dependencies]
+test = ["pytest>=8.0.0"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
 [project.scripts]
 biomero-schema = "biomero_schema.cli:cli"
 
@@ -32,6 +38,7 @@ platforms = ["osx-64", "win-64"]
 
 [tool.pixi.pypi-dependencies]
 biomero-schema = { path = ".", editable = true }
+pytest = ">=8.0.0"
 
 [tool.pixi.tasks]
 json-schema = { cmd = ["biomero-schema", "schema"], description = "Print the json schema generated from pydantic model" }
@@ -39,3 +46,4 @@ test-parse = { cmd = ["biomero-schema", "parse", "tests/example_workflow.json"],
 test-pparse = { cmd = ["biomero-schema", "parse", "tests/example_workflow.json", "--pretty"], description = "Parse, validate, and show detailed info on test file" }
 test-jparse = { cmd = ["biomero-schema", "parse", "tests/example_workflow.json", "--json"], description = "Parse, validate, and show test file json contents" }
 test-validate = { cmd = ["biomero-schema", "validate", "tests/example_workflow.json"], description = "Run json schema validation on test file" }
+test = { cmd = ["pytest", "-v"], description = "Run all tests" }
