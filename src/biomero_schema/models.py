@@ -87,9 +87,12 @@ class Parameter(BaseModel):
     value_choices: Optional[List[Union[str, int, float, bool]]] = Field(None, alias="value-choices", description="List of allowed values for this parameter")
     output_dir_set: Optional[bool] = Field(None, alias="output-dir-set", description="If true, this parameter specifies the output directory (bilayers output_dir_set flag). Biomero will supply the data/out path.")
 
+    mode: Optional[Literal["beginner", "advanced"]] = Field(None, description="UI display mode — 'advanced' params are collapsed by default in the UI")
+
     # Type-specific fields
     format: Optional[Union[str, List[str]]] = Field(None, description="Format for file/image/array types")
     sub_type: Optional[Union[str, List[str]]] = Field(None, alias="sub-type", description="Sub-type for image parameters")
+    value_choices_labels: Optional[List[Optional[str]]] = Field(None, alias="value-choices-labels", description="Display labels for value_choices, index-aligned. When None, value is used as label.")
 
 
 class OutputParameter(BaseModel):
@@ -105,9 +108,12 @@ class OutputParameter(BaseModel):
     set_by_server: Optional[bool] = Field(None, alias="set-by-server", description="If true, parameter is server-assigned. Soft Defaults to False")
     value_choices: Optional[List[Union[str, int, float, bool]]] = Field(None, alias="value-choices", description="List of allowed values for this parameter")
 
+    mode: Optional[Literal["beginner", "advanced"]] = Field(None, description="UI display mode — 'advanced' params are collapsed by default in the UI")
+
     # Type-specific fields
     format: Optional[Union[str, List[str]]] = Field(None, description="Format for file/image/array types")
     sub_type: Optional[Union[str, List[str]]] = Field(None, alias="sub-type", description="Sub-type for image parameters")
+    value_choices_labels: Optional[List[Optional[str]]] = Field(None, alias="value-choices-labels", description="Display labels for value_choices, index-aligned. When None, value is used as label.")
 
 
 class WorkflowSchema(BaseModel):
