@@ -81,7 +81,12 @@ class Parameter(BaseModel):
     description: Optional[str] = Field(None, description="Description of parameter. Context help in BIAFLOWS UI (parameter dialog box). Soft Defaults to ''")
     value_key: Optional[str] = Field(None, alias="value-key", description="Substitution key in CLI. Defaults to '[@ID]'")
     command_line_flag: Optional[str] = Field(None, alias="command-line-flag", description="CLI flag. Defaults to '--@id'")
-    default_value: Optional[Union[str, float, bool]] = Field(None, alias="default-value", description="Default value in BIAFLOWS UI (parameter dialog box). Soft Defaults to empty string")
+    default_value: Optional[Union[str, int, float, bool]] = Field(
+        None,
+        alias="default-value",
+        description="Default value in BIAFLOWS UI (parameter dialog box). "
+                    "Soft Defaults to empty string"
+    )
     optional: Optional[bool] = Field(None, description="If true, parameter not required. Soft Defaults to False")
     set_by_server: Optional[bool] = Field(None, alias="set-by-server", description="If true, parameter is server-assigned. Soft Defaults to False")
     value_choices: Optional[List[Union[str, int, float, bool]]] = Field(None, alias="value-choices", description="List of allowed values for this parameter")
@@ -103,7 +108,12 @@ class OutputParameter(BaseModel):
     description: Optional[str] = Field(None, description="Description of parameter. Context help in BIAFLOWS UI (parameter dialog box). Soft Defaults to ''")
     value_key: Optional[str] = Field(None, alias="value-key", description="Substitution key in CLI. Defaults to '[@ID]'")
     command_line_flag: Optional[str] = Field(None, alias="command-line-flag", description="CLI flag. Defaults to '--@id'")
-    default_value: Optional[Union[str, float, bool]] = Field(None, alias="default-value", description="Default value in BIAFLOWS UI (parameter dialog box). Soft Defaults to empty string")
+    default_value: Optional[Union[str, int, float, bool]] = Field(
+        None,
+        alias="default-value",
+        description="Default value in BIAFLOWS UI (parameter dialog box). "
+                    "Soft Defaults to empty string"
+    )
     optional: Optional[bool] = Field(None, description="If true, parameter not required. Soft Defaults to False")
     set_by_server: Optional[bool] = Field(None, alias="set-by-server", description="If true, parameter is server-assigned. Soft Defaults to False")
     value_choices: Optional[List[Union[str, int, float, bool]]] = Field(None, alias="value-choices", description="List of allowed values for this parameter")
