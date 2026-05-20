@@ -76,7 +76,7 @@ class ArrayParameter(BaseModel):
 class Parameter(BaseModel):
     """Parameter model."""
     id: str = Field(..., description="Unique parameter identifier")
-    type: Literal["Number", "String", "integer", "float", "boolean", "string", "file", "image", "array"] = Field(..., description="Data type of the parameter")
+    type: Literal["Number", "String", "integer", "float", "boolean", "string", "file", "image", "array", "measurement", "executable"] = Field(..., description="Data type of the parameter")
     name: Optional[str] = Field(None, description="Human-readable display name appearing in BIAFLOWS UI (parameter dialog box). Defaults to '@id'")
     description: Optional[str] = Field(None, description="Description of parameter. Context help in BIAFLOWS UI (parameter dialog box). Soft Defaults to ''")
     value_key: Optional[str] = Field(None, alias="value-key", description="Substitution key in CLI. Defaults to '[@ID]'")
@@ -96,6 +96,7 @@ class Parameter(BaseModel):
 
     # Type-specific fields
     format: Optional[Union[str, List[str]]] = Field(None, description="Format for file/image/array types")
+    file_count: Optional[Literal["single", "multiple"]] = Field(None, alias="file-count", description="For file-type inputs: whether user selects a single file or multiple files")
     sub_type: Optional[Union[str, List[str]]] = Field(None, alias="sub-type", description="Sub-type for image parameters")
     value_choices_labels: Optional[List[Optional[str]]] = Field(None, alias="value-choices-labels", description="Display labels for value_choices, index-aligned. When None, value is used as label.")
 
@@ -103,7 +104,7 @@ class Parameter(BaseModel):
 class OutputParameter(BaseModel):
     """Output parameter model."""
     id: str = Field(..., description="Unique parameter identifier")
-    type: Literal["Number", "String", "integer", "float", "boolean", "string", "file", "image", "array"] = Field(..., description="Data type of the parameter")
+    type: Literal["Number", "String", "integer", "float", "boolean", "string", "file", "image", "array", "measurement", "executable"] = Field(..., description="Data type of the parameter")
     name: Optional[str] = Field(None, description="Human-readable display name appearing in BIAFLOWS UI (parameter dialog box). Defaults to '@id'")
     description: Optional[str] = Field(None, description="Description of parameter. Context help in BIAFLOWS UI (parameter dialog box). Soft Defaults to ''")
     value_key: Optional[str] = Field(None, alias="value-key", description="Substitution key in CLI. Defaults to '[@ID]'")
