@@ -1,6 +1,8 @@
 """Pydantic models for the workflow schema."""
 from typing import List, Optional, Union, Literal
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, computed_field, ConfigDict
+
+_ZARR_FORMATS = frozenset({'zarr', 'omezarr', 'ome.zarr', 'ome-zarr'})
 
 
 class Author(BaseModel):
@@ -27,7 +29,7 @@ class Citation(BaseModel):
 class ContainerImage(BaseModel):
     """Container image model."""
     image: str = Field(..., description="Image to match the name of your workflow GitHub repository (lower case only)")
-    type: Literal["oci", "singularity"] = Field(..., description="Container type")
+    type: Literal["oci", "singularity", "docker"] = Field(..., description="Container type")
     platforms: Optional[List[str]] = Field(None, description="Build-time multi-platform targets")
 
 
@@ -63,7 +65,7 @@ class FileParameter(BaseModel):
 class ImageParameter(BaseModel):
     """Image parameter specific fields."""
     sub_type: Literal["grayscale", "color", "binary", "labeled", "class"] = Field(..., alias="sub-type", description="Image type")
-    format: Literal["tif", "png", "jpg", "jpeg", "tiff", "ometiff"] = Field(..., description="Extension of the image type")
+    format: Literal["tif", "png", "jpg", "jpeg", "tiff", "ometiff", "zarr", "omezarr"] = Field(..., description="Extension of the image type")
 
 
 class ArrayParameter(BaseModel):
@@ -74,7 +76,7 @@ class ArrayParameter(BaseModel):
 class Parameter(BaseModel):
     """Parameter model."""
     id: str = Field(..., description="Unique parameter identifier")
-    type: Literal["Number", "String", "integer", "float", "boolean", "string", "file", "image", "array"] = Field(..., description="Data type of the parameter")
+    type: Literal["Number", "String", "integer", "float", "boolean", "string", "file", "image", "array", "measurement", "executable"] = Field(..., description="Data type of the parameter")
     name: Optional[str] = Field(None, description="Human-readable display name appearing in BIAFLOWS UI (parameter dialog box). Defaults to '@id'")
     description: Optional[str] = Field(None, description="Description of parameter. Context help in BIAFLOWS UI (parameter dialog box). Soft Defaults to ''")
     value_key: Optional[str] = Field(None, alias="value-key", description="Substitution key in CLI. Defaults to '[@ID]'")
@@ -87,16 +89,23 @@ class Parameter(BaseModel):
     )
     optional: Optional[bool] = Field(None, description="If true, parameter not required. Soft Defaults to False")
     set_by_server: Optional[bool] = Field(None, alias="set-by-server", description="If true, parameter is server-assigned. Soft Defaults to False")
-    
+    value_choices: Optional[List[Union[str, int, float, bool]]] = Field(None, alias="value-choices", description="List of allowed values for this parameter")
+    output_dir_set: Optional[bool] = Field(None, alias="output-dir-set", description="If true, this parameter specifies the output directory (bilayers output_dir_set flag). Biomero will supply the data/out path.")
+    file_attachment: Optional[bool] = Field(None, alias="file-attachment", description="If true, this is a user-supplied OMERO file-attachment input (annotation ID). Biomero will download the file from OMERO and transfer it to the HPC at runtime, then inject the resolved path as the CLI argument.")
+
+    mode: Optional[Literal["beginner", "advanced"]] = Field(None, description="UI display mode — 'advanced' params are collapsed by default in the UI")
+
     # Type-specific fields
-    format: Optional[str] = Field(None, description="Format for file/image/array types")
-    sub_type: Optional[str] = Field(None, alias="sub-type", description="Sub-type for image parameters")
+    format: Optional[Union[str, List[str]]] = Field(None, description="Format for file/image/array types")
+    file_count: Optional[Literal["single", "multiple"]] = Field(None, alias="file-count", description="For file-type inputs: whether user selects a single file or multiple files")
+    sub_type: Optional[Union[str, List[str]]] = Field(None, alias="sub-type", description="Sub-type for image parameters")
+    value_choices_labels: Optional[List[Optional[str]]] = Field(None, alias="value-choices-labels", description="Display labels for value_choices, index-aligned. When None, value is used as label.")
 
 
 class OutputParameter(BaseModel):
     """Output parameter model."""
     id: str = Field(..., description="Unique parameter identifier")
-    type: Literal["Number", "String"] = Field(..., description="Data type of the parameter")
+    type: Literal["Number", "String", "integer", "float", "boolean", "string", "file", "image", "array", "measurement", "executable"] = Field(..., description="Data type of the parameter")
     name: Optional[str] = Field(None, description="Human-readable display name appearing in BIAFLOWS UI (parameter dialog box). Defaults to '@id'")
     description: Optional[str] = Field(None, description="Description of parameter. Context help in BIAFLOWS UI (parameter dialog box). Soft Defaults to ''")
     value_key: Optional[str] = Field(None, alias="value-key", description="Substitution key in CLI. Defaults to '[@ID]'")
@@ -109,6 +118,14 @@ class OutputParameter(BaseModel):
     )
     optional: Optional[bool] = Field(None, description="If true, parameter not required. Soft Defaults to False")
     set_by_server: Optional[bool] = Field(None, alias="set-by-server", description="If true, parameter is server-assigned. Soft Defaults to False")
+    value_choices: Optional[List[Union[str, int, float, bool]]] = Field(None, alias="value-choices", description="List of allowed values for this parameter")
+
+    mode: Optional[Literal["beginner", "advanced"]] = Field(None, description="UI display mode — 'advanced' params are collapsed by default in the UI")
+
+    # Type-specific fields
+    format: Optional[Union[str, List[str]]] = Field(None, description="Format for file/image/array types")
+    sub_type: Optional[Union[str, List[str]]] = Field(None, alias="sub-type", description="Sub-type for image parameters")
+    value_choices_labels: Optional[List[Optional[str]]] = Field(None, alias="value-choices-labels", description="Display labels for value_choices, index-aligned. When None, value is used as label.")
 
 
 class WorkflowSchema(BaseModel):
@@ -136,6 +153,37 @@ class WorkflowSchema(BaseModel):
     outputs: List[OutputParameter] = Field([], description="List of output parameter descriptors")
     command_line: str = Field(..., alias="command-line", description="Command line template")
 
-    class Config:
-        populate_by_name = True
-        validate_by_name = True
+    @computed_field(alias="requires-zarr")
+    @property
+    def requires_zarr(self) -> bool:
+        """True when any image input uses a ZARR format or has plate subtype."""
+        for inp in self.inputs:
+            if inp.type != 'image':
+                continue
+            fmt = inp.format or []
+            if isinstance(fmt, str):
+                fmt = [fmt]
+            if any(f in _ZARR_FORMATS for f in fmt):
+                return True
+            sub = inp.sub_type or []
+            if isinstance(sub, str):
+                sub = [sub]
+            if 'plate' in sub:
+                return True
+        return False
+
+    @computed_field(alias="requires-plate")
+    @property
+    def requires_plate(self) -> bool:
+        """True when any image input has plate subtype."""
+        for inp in self.inputs:
+            if inp.type != 'image':
+                continue
+            sub = inp.sub_type or []
+            if isinstance(sub, str):
+                sub = [sub]
+            if 'plate' in sub:
+                return True
+        return False
+
+    model_config = ConfigDict(populate_by_name=True, validate_by_alias=True)
