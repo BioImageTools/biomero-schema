@@ -91,6 +91,7 @@ class Parameter(BaseModel):
     set_by_server: Optional[bool] = Field(None, alias="set-by-server", description="If true, parameter is server-assigned. Soft Defaults to False")
     value_choices: Optional[List[Union[str, int, float, bool]]] = Field(None, alias="value-choices", description="List of allowed values for this parameter")
     output_dir_set: Optional[bool] = Field(None, alias="output-dir-set", description="If true, this parameter specifies the output directory (bilayers output_dir_set flag). Biomero will supply the data/out path.")
+    file_attachment: Optional[bool] = Field(None, alias="file-attachment", description="If true, this is a user-supplied OMERO file-attachment input (annotation ID). Biomero will download the file from OMERO and transfer it to the HPC at runtime, then inject the resolved path as the CLI argument.")
 
     mode: Optional[Literal["beginner", "advanced"]] = Field(None, description="UI display mode — 'advanced' params are collapsed by default in the UI")
 
