@@ -124,6 +124,11 @@ class OutputParameter(BaseModel):
 
     # Type-specific fields
     format: Optional[Union[str, List[str]]] = Field(None, description="Format for file/image/array types")
+    file_count: Optional[Literal["single", "multiple"]] = Field(
+        None,
+        alias="file-count",
+        description="Emits a single file or multiple files",
+    )
     sub_type: Optional[Union[str, List[str]]] = Field(None, alias="sub-type", description="Sub-type for image parameters")
     value_choices_labels: Optional[List[Optional[str]]] = Field(None, alias="value-choices-labels", description="Display labels for value_choices, index-aligned. When None, value is used as label.")
 
