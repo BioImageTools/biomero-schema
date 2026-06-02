@@ -15,3 +15,7 @@ jobs:
         with:
           pixi-version: latest
       - run: pixi run test
+      - run: pixi run test-validate
+      - run: pixi run test-parse
+      - run: pixi run test-pparse
+      - run: pixi run test-jparse
