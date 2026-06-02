@@ -4,6 +4,10 @@ from pydantic import BaseModel, Field, computed_field, ConfigDict
 
 _ZARR_FORMATS = frozenset({'zarr', 'omezarr', 'ome.zarr', 'ome-zarr'})
 
+# The schema format identifier embedded in every biomero-schema descriptor.
+# Increment the minor version on breaking schema changes.
+BIOMERO_SCHEMA_VERSION = "biomero-0.1"
+
 
 class Author(BaseModel):
     """Author model."""
@@ -137,7 +141,7 @@ class WorkflowSchema(BaseModel):
     """Main workflow schema model."""
     name: str = Field(..., description="GitHub workflow repository name (without prefix). E.g. NucleiTracking-ImageJ")
     description: str = Field(..., description="Description of workflow")
-    schema_version: str = Field(..., alias="schema-version", description="Semver of schema version")
+    schema_version: str = Field(..., alias="schema-version", description="Schema format identifier, e.g. 'biomero-0.1'")
     authors: List[Author] = Field([], description="Authors list")
     institutions: List[Institution] = Field([], description="Institutions list")
     citations: List[Citation] = Field([], min_length=1, description="List of citations for the tool. At least one required")

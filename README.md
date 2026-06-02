@@ -100,7 +100,7 @@ schema =
 {
   "name": "string",                      // Required. GitHub workflow repository name (without prefix). E.g. NucleiTracking-ImageJ
   "description": "string"                // Required. Description of workflow.
-  "schema-version": "string"             // Required. Semver of schema version.
+  "schema-version": "string"             // Required. Schema format identifier. Use the current schema version constant, e.g. "biomero-0.1".
   "authors":                             // Optional. Authors list.
     [
       {
