@@ -116,7 +116,7 @@ schema =
         "name": "string"                 // Optional. Name of the institions. Defaults to id.
       }
     ],
-  "citations":                           // Optional. List of citations for the tool. Defaults to empty list.
+  "citations":                           // Required. List of citations for the tool. At least one citation required.
     [
       {
         "name": "string",                // Required. Name of the tool being cited.
@@ -127,16 +127,16 @@ schema =
     ],
   // corresponding to: https://neubias-wg5.github.io/problem_class_ground_truth.html#steps-section
   "problem-class":                       // Optional. Biaflows problem class ("object-segmentation" | "pixel-classification" | "object-counting" | "object-detection" | "filament-tree-tracing" | "filament-networks-tracing" | "landmark-detection" | "particle-tracking" | "object-tracking").
-  "container-image":                     // Required. Base cotnainer description.
+  "container-image":                     // Required. Base container description.
     {
       "image": "string",                 // Required. Image to match the name of your workflow GitHub repository (lower case only). E.g. neubiaswg5/w_nucleitracking-imagej:1.0.0
-      "type": "string",                  // Required. "oci" | "singularity" (lower case only).
+      "type": "string",                  // Required. "oci" | "singularity" | "docker" (lower case only).
       "platforms": "string"[]            // Optional. Build-time multi-platform targets.
     },
   "configuration":                       // Optional. Technical configuration.
   {
     "input_folder": "string",            // Optional. Full path where the input folder must be mounted in the container. Defaults to "/inputs".
-    "output_folder": "string",           // Optional. Full path where teh output folder must be mounted in the container. Defaults to "/outputs".
+    "output_folder": "string",           // Optional. Full path where the output folder must be mounted in the container. Defaults to "/outputs".
     "resources":                         // Optional.
       {
         "networking": "boolean",         // Optional. Whether internet connection is needed. Defaults to False.
@@ -158,14 +158,20 @@ schema =
         // references to "@id" get the value of "id" in lowercase
         // references to "@ID" get the value of "id" in uppercase
         "id": "string",                  // Required. Unique parameter identifier.
-        "type": "string",                // Required. Data type of the parameter (Number|String|ineger|flaot|boolean|string|file|image|array).
-        "name": "string",                // Optional. Human-readable display name appearing in BIAFLOWS UI (paramater dialog box). Defaults to "@id".
-        "description": "string",         // Optional. Description of paramater. Context help in BIAFLOWS UI (paramater dialog box). Soft Defaults to "".
+        "type": "string",                // Required. Data type of the parameter (Number|String|integer|float|boolean|string|file|image|array|measurement|executable).
+        "name": "string",                // Optional. Human-readable display name appearing in BIAFLOWS UI (parameter dialog box). Defaults to "@id".
+        "description": "string",         // Optional. Description of parameter. Context help in BIAFLOWS UI (parameter dialog box). Soft Defaults to "".
         "value-key": "string",           // Optional. Substitution key in CLI. Defaults to "[@ID]".
         "command-line-flag": "string",   // Optional. CLI flag. Defaults to "--@id".
-        "default-value": "string|number|boolean", // Optional. Default value in BIAFLOWS UI (paramater dialog box). Soft Defaults to empty string.
+        "default-value": "string|number|boolean", // Optional. Default value in BIAFLOWS UI (parameter dialog box). Soft Defaults to empty string.
         "optional": "boolean",           // Optional. If true, parameter not required. Soft Defaults to False.
         "set-by-server": "boolean",      // Optional. If true, parameter is server-assigned. Soft Defaults to False.
+        "value-choices": "array",        // Optional. List of allowed values for this parameter.
+        "value-choices-labels": "string[]", // Optional. Display labels for value-choices, index-aligned. When null, value is used as label.
+        "mode": "string",                // Optional. UI display mode — "beginner" | "advanced". Advanced params are collapsed by default in the UI.
+        "file-count": "string",          // Optional. For file-type inputs: "single" | "multiple".
+        "output-dir-set": "boolean",     // Optional. If true, this parameter specifies the output directory. Biomero will supply the data/out path.
+        "file-attachment": "boolean",    // Optional. If true, this is a user-supplied OMERO file-attachment input (annotation ID). Biomero will download the file from OMERO and transfer it to the HPC at runtime, then inject the resolved path as the CLI argument.
       }
     ]
   "outputs":                           // Optional. List of output parameter descriptors.
@@ -174,14 +180,18 @@ schema =
         // references to "@id" get the value of "id" in lowercase
         // references to "@ID" get the value of "id" in uppercase
         "id": "string",                  // Required. Unique parameter identifier.
-        "type": "string",                // Required. Data type of the parameter (Number|String).
-        "name": "string",                // Optional. Human-readable display name appearing in BIAFLOWS UI (paramater dialog box). Defaults to "@id".
-        "description": "string",         // Optional. Description of paramater. Context help in BIAFLOWS UI (paramater dialog box). Soft Defaults to "".
+        "type": "string",                // Required. Data type of the parameter (Number|String|integer|float|boolean|string|file|image|array|measurement|executable).
+        "name": "string",                // Optional. Human-readable display name appearing in BIAFLOWS UI (parameter dialog box). Defaults to "@id".
+        "description": "string",         // Optional. Description of parameter. Context help in BIAFLOWS UI (parameter dialog box). Soft Defaults to "".
         "value-key": "string",           // Optional. Substitution key in CLI. Defaults to "[@ID]".
         "command-line-flag": "string",   // Optional. CLI flag. Defaults to "--@id".
-        "default-value": "string|number|boolean", // Optional. Default value in BIAFLOWS UI (paramater dialog box). Soft Defaults to empty string.
+        "default-value": "string|number|boolean", // Optional. Default value in BIAFLOWS UI (parameter dialog box). Soft Defaults to empty string.
         "optional": "boolean",           // Optional. If true, parameter not required. Soft Defaults to False.
         "set-by-server": "boolean",      // Optional. If true, parameter is server-assigned. Soft Defaults to False.
+        "value-choices": "array",        // Optional. List of allowed values for this parameter.
+        "value-choices-labels": "string[]", // Optional. Display labels for value-choices, index-aligned. When null, value is used as label.
+        "mode": "string",                // Optional. UI display mode — "beginner" | "advanced". Advanced params are collapsed by default in the UI.
+        "file-count": "string",          // Optional. For file-type outputs: "single" | "multiple".
       }
     ]
   "command-line": "string"               // Required. e.g. "python wrapper.py CYTOMINE_HOST CYTOMINE_PUBLIC_KEY CYTOMINE_PRIVATE_KEY CYTOMINE_ID_PROJECT CYTOMINE_ID_SOFTWARE IJ_RADIUS IJ_THRESHOLD".
@@ -194,8 +204,8 @@ file =
 
 image =
 {
-  "sub-type": "string",                 // Required. Image type (grayscale|color|binary|labeled|class).
-  "format": "string"                    // Required. Extension of the image type (tif, png, jpg, jpeg, tiff, ometiff).
+  "sub-type": "string|string[]",        // Optional. Image type (grayscale|color|binary|labeled|class|plate). Can be a single value or list.
+  "format": "string|string[]"           // Optional. Extension of the image type (tif|png|jpg|jpeg|tiff|ometiff|zarr|omezarr|ome.zarr|ome-zarr). Can be a single value or list.
 }
 
 array =
@@ -203,3 +213,10 @@ array =
   "format": "string"                    // Required. Extension of the file type (npy, npz)
 }
 ```
+
+## Computed Fields
+
+The following fields are automatically computed from the schema and included in the JSON output:
+
+- **`requires-zarr`** (`boolean`): `true` when any image input uses a ZARR format (`zarr`, `omezarr`, `ome.zarr`, `ome-zarr`) or has `plate` sub-type.
+- **`requires-plate`** (`boolean`): `true` when any image input has `plate` sub-type.
