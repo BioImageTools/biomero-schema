@@ -105,15 +105,15 @@ schema =
     [
       {
         "name": "string",                // Required. Full name of author.
-        "email": "optional",             // Optional. Email address of author.
-        "affiliations": "string[]"       // Optional. List of affiliations matching "id" of an instituttion in instititions list.
+        "email": "string",               // Optional. Email address of author.
+        "affiliations": "string[]"       // Optional. List of affiliations matching "id" of an institution in institutions list.
       }
     ],
   "institutions":                        // Optional. Institutions list.
     [
       {
         "id": "string",                  // Required. Unique institute identifier.
-        "name": "string"                 // Optional. Name of the institions. Defaults to id.
+        "name": "string"                 // Optional. Name of the institution. Defaults to id.
       }
     ],
   "citations":                           // Required. List of citations for the tool. At least one citation required.
@@ -170,6 +170,8 @@ schema =
         "value-choices-labels": "string[]", // Optional. Display labels for value-choices, index-aligned. When null, value is used as label.
         "mode": "string",                // Optional. UI display mode — "beginner" | "advanced". Advanced params are collapsed by default in the UI.
         "file-count": "string",          // Optional. For file-type inputs: "single" | "multiple".
+        "format": "string|string[]",      // Optional. Type-specific. File extension(s) — see file/image/array sections below.
+        "sub-type": "string|string[]",   // Optional. Type-specific. Image sub-type(s) — see image section below.
         "output-dir-set": "boolean",     // Optional. If true, this parameter specifies the output directory. Biomero will supply the data/out path.
         "file-attachment": "boolean",    // Optional. If true, this is a user-supplied OMERO file-attachment input (annotation ID). Biomero will download the file from OMERO and transfer it to the HPC at runtime, then inject the resolved path as the CLI argument.
       }
@@ -192,6 +194,8 @@ schema =
         "value-choices-labels": "string[]", // Optional. Display labels for value-choices, index-aligned. When null, value is used as label.
         "mode": "string",                // Optional. UI display mode — "beginner" | "advanced". Advanced params are collapsed by default in the UI.
         "file-count": "string",          // Optional. For file-type outputs: "single" | "multiple".
+        "format": "string|string[]",      // Optional. Type-specific. File extension(s) — see file/image/array sections below.
+        "sub-type": "string|string[]",   // Optional. Type-specific. Image sub-type(s) — see image section below.
       }
     ]
   "command-line": "string"               // Required. e.g. "python wrapper.py CYTOMINE_HOST CYTOMINE_PUBLIC_KEY CYTOMINE_PRIVATE_KEY CYTOMINE_ID_PROJECT CYTOMINE_ID_SOFTWARE IJ_RADIUS IJ_THRESHOLD".
@@ -199,7 +203,7 @@ schema =
 
 file =
 {
-  "format": "string"                    // Required. Extension of the file type (.csv).
+  "format": "string"                    // Optional. Extension of the file type (e.g. .csv).
 }
 
 image =
@@ -210,7 +214,7 @@ image =
 
 array =
 {
-  "format": "string"                    // Required. Extension of the file type (npy, npz)
+  "format": "string"                    // Optional. Extension of the file type (npy, npz)
 }
 ```
 

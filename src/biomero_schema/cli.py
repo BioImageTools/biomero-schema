@@ -70,7 +70,7 @@ def validate(descriptor_file: str):
 
 
 @cli.command()
-@click.argument("input_file", type=click.Path(exists=True))
+@click.argument("descriptor_file", type=click.Path(exists=True))
 @click.option("--pretty", is_flag=True, help="Pretty print the parsed object")
 @click.option("--json", "output_json", is_flag=True, help="Output as JSON")
 def parse(descriptor_file: str, pretty: bool, output_json: bool):
