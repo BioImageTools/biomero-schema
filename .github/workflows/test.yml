@@ -1,0 +1,23 @@
+name: Tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: windows-latest
+    env:
+      PYTHONUTF8: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: prefix-dev/setup-pixi@v0.8.0
+        with:
+          pixi-version: latest
+      - run: pixi run test
+      - run: pixi run test-validate
+      - run: pixi run test-parse
+      - run: pixi run test-pparse
+      - run: pixi run test-jparse
